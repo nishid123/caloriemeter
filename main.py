@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, flash, redirect
+from flask import Flask, render_template, request, flash, redirect, url_for, session
 import mysql.connector
+from datetime import date
 
 app=Flask(__name__)
 
 app.secret_key = 'Calorimeter'
+
 
 @app.route('/')
 def login():
@@ -17,9 +19,21 @@ def signup():
 def stdInfoPage():
     return render_template('stdInfoPage.html')
 
+@app.route('/stdWelcomePage', methods=['POST','GET'])
+def stdWelcomePage():
+    return redirect('/home')
+
 @app.route('/home')
 def home():
     return render_template('home.html')
+
+@app.route('/addItem')
+def addItem():
+    return render_template('addItem.html')
+
+@app.route('/viewItem')
+def viewItem():
+    return render_template('viewItem.html')
 
 @app.route('/login_validation',methods=['POST','GET'])
 def login_validation():
@@ -36,18 +50,18 @@ def login_validation():
         password=login.get("pswd")
         if email=="" or password=="":
             flash("Fill all boxes", "warning")
-            return render_template('login.html')
+            return redirect('/')
 
         mycursor.execute("Select * from information where email='"+email+"' and password='"+password+"'")
         r=mycursor.fetchall()
         count=mycursor.rowcount
         if count==1:
-            return render_template('home.html')
+            return redirect('/home')
         elif count>1:
             return '<h1>Oops!!<br> Something went wrong</h1>'
         else:
             flash("invalid Email or Password", "danger")
-            return render_template('login.html')
+            return redirect('/')
     mydb.commit()
     mycursor.close()
 
@@ -68,7 +82,7 @@ def signup_validation():
         password=signup.get('pswd')
         if name=="" or email=="" or password=="":
             flash("Fill all boxes", "warning")
-            return render_template('signup.html')
+            return redirect('/signup')
 
         emailcursor.execute("select * from information where email='"+email+"'")
         result = emailcursor.fetchall()
@@ -77,39 +91,77 @@ def signup_validation():
             flash("User exists", "danger")
             mydb.commit()
             emailcursor.close()
-            return render_template('signup.html')
+            return redirect('/signup')
 
         if len(password)<8:
             flash("Min Password length: 8 ","danger")
-            return render_template("signup.html")
+            return redirect("/signup")
+        session["useremail"] = email
+        session["username"] = name
 
-        mycursor.execute("insert into information (name,email,password)values(%s,%s,%s)",(name,email,password))
+        mycursor.execute("insert into information (name,email,password,height,weight,age,gender)values(%s,%s,%s,%s,%s,%s,%s)",(name,email,password,'0','0','0','0'))
     mydb.commit()
     mycursor.close()
-    return render_template('stdInfoPage.html')
+    return redirect('/stdInfoPage')
 
 
 @app.route('/stdinfo_validation',methods=['POST','GET'])
 def stdinfo_validation():
+    global calories
     mydb=mysql.connector.connect(
         host="localhost",
         user="root",
         password="",
         database="calorimeter"
     )
- #   mycursor=mydb.cursor()
-    if request.method=='POST':
-        stdinfo=request.form
+    if "useremail" in session:
+        useremail = session["useremail"]
+        username = session["username"]
 
-        height=stdinfo.get('ht')
-        weight=stdinfo.get('wt')
-        age=stdinfo.get('date1')
+        mycursor=mydb.cursor()
 
-#        mycursor.execute("insert into information (name,email,password)values(%s,%s,%s)",(name,email,password))
-  #  mydb.commit()
-   # mycursor.close()
-        return "The height is {} and the weight is {}".format(height,weight,age)
+        if request.method=='POST':
+            stdinfo=request.form
+            height=stdinfo.get('ht')
+            weight=stdinfo.get('wt')
+            birthday = stdinfo.get('date1')
+            if stdinfo.get('gender') == 'male':
+                gender = 'male'
+            elif stdinfo.get('gender') == 'female':
+                gender = 'female'
+            else:
+                gender = "others"
 
+            year = int(birthday[0:4])
+            month = int(birthday[5:7])
+            day = int(birthday[8:10])
+            age = calculateAge(day, month, year)
+            calories = calculateCal(int(height),int(weight),age,gender)
+            session["calories"] = calories
+            mycursor.execute("update information set height=%s,weight=%s,age=%s,gender=%s,calories=%s where email=%s",(height, weight, age, gender, calories, useremail))
+
+        mydb.commit()
+        mycursor.close()
+
+        return render_template('stdWelcomePage.html', username=username, calories=calories)
+    else:
+        return redirect('/stdinfo_validation')
+
+
+
+def calculateAge(day,month,year):
+    today = date.today()
+    age = today.year - year -((today.month, today.day)<(month, day))
+    return age
+
+def calculateCal(h,w,a,gen):
+    if gen == 'male':
+        cal = int(1.55 * ((10 * w) + (6.25 * h) - (5 * a) + 5))
+    elif gen == 'female':
+        cal = int(1.55 * ((10 * w) + (6.25 * h) - (5 * a) - 161))
+    else:
+        cal = int(1.55 * ((10 * w) + (6.25 * h) - (5 * a)))
+    return cal
 
 if __name__ =="__main__":
     app.run(debug=True)
