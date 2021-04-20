@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Profile</title>
+
+		<link href="https://fonts.googleapis.com/css?family=Oswald|Ubuntu:400,700" rel="stylesheet">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/united.min.css') }}" >
+		<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}" >
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!-- [if lt IE 9]
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif] -->
+	</head>
+	<body>
+
+		<div class="container-fluid" id="wrapper">
+
+			<div class="row" id="homeJumbo">
+				<div class="overlay"></div>
+				<div class="col-lg-12">
+					<h1>
+						<a href="{{ url_for('home') }}">Calorimeter</a>
+					</h1>
+
+					<div class="row t20">
+						<div class="col-lg-4 col-lg-offset-4">
+							<ul class="nav nav-pills nav-justified">
+								<li role="presentation">
+							  		<a href="{{ url_for('home') }}" title="Home">Home</a>
+							  	</li>
+							  	<li role="presentation">
+							  		<a href="{{ url_for('addItem') }}" title="Add Food Item">Add Food</a>
+							  	</li>
+								<li role="presentation" class="active">
+							  		<a href="{{ url_for('profile') }}" title="profile">profile</a>
+							  	</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="workingg" align="center">
+                <h1>Working on it ...</h1>
+            </div>
+			<div class="footer-ids">
+				<footer>
+					<hr>
+					<div class="row pad">
+						<div class="col-lg-4">
+							<div class="footer-col-item">
+								<h4>Thadomal Shahani Engineering College</h4>
+								<address>
+									Vidyalankar Educational Campus
+								</address>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="footer-col-item">
+								<h4>Reach Us</h4>
+								<div class="item-contact"> <a href="mailto:kunalkj666@gmail.com"><span class="link-id">1</span>:<span>kunalkj666@gmail.com</span></a>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							  <div class="footer-col-item">
+								  <h4>Your Valuable Feedback</h4>
+								  <p><a href= "https://docs.google.com/forms/d/e/1FAIpQLSf40I20wM7LcNusoQqpF3iQtan9hx7_wuDtaqgwQ4nk-_2s6w/viewform?usp=sf_link">Your feedback <br> matters a lot to us</a></p>
+							  </div>
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+
+		<!-- jQuery -->
+		<!-- <script src="{{ url_for('static', filename='bs/js/jquery.min.js') }}"></script> -->
+		<!-- Bootstrap JavaScript -->
+	<!--	<script src="{{ url_for('static', filename='bs/js/bootstrap.min.js') }}"></script> -->
+	</body>
+</html>

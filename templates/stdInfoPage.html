@@ -12,17 +12,17 @@
     <div class="row">
         <div class="col-md-4 col-sm-4 col-xs-12"></div>
         <div class="col-md-4 col-sm-4 col-xs-12">
-            <form class="bg form-container" method="post" action="/stdinfo_validation">
+            <form class="bg form-container" method="post" action="{{ url_for('stdinfo_validation') }}">
                 <p class="topic">
                     Calorimeter
                 </p>
                 <div class="mb-3">
                     <label for="exampleInputHeight1" class="form-label">How tall are you?</label>
-                    <input type="text" class="form-control" id="exampleInputHeight1" name="ht" placeholder="Height" aria-describedby="nameHelp">
+                    <input type="number" class="form-control" id="exampleInputHeight1" name="ht" placeholder="Height" aria-describedby="nameHelp">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputWeight1" class="form-label">How much do you weigh?</label>
-                    <input type="text" class="form-control" id="exampleInputWeight1" name="wt" placeholder="Weight" aria-describedby="emailHelp">
+                    <input type="number" class="form-control" id="exampleInputWeight1" name="wt" placeholder="Weight" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputAge1" class="form-label">How old are you?</label>

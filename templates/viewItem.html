@@ -10,7 +10,7 @@
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/united.min.css') }}" />
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}" />
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,18 +27,22 @@
 				<div class="overlay"></div>
 				<div class="col-lg-12">
 					<h1>
-						<a href="/home">Calorimeter</a>
+						<a href="{{ url_for('home') }}">Calorimeter</a>
 					</h1>
 
 					<div class="row t20">
 						<div class="col-lg-4 col-lg-offset-4">
 							<ul class="nav nav-pills nav-justified">
 							  <li role="presentation">
-							  	<a href="/home" title="Home">Home</a>
+							  	<a href="{{ url_for('home') }}" title="Home">Home</a>
 							  </li>
 							  <li role="presentation">
-							  	<a href="/addItem" title="Add Food Item">Add Food Item</a>
+							  	<a href="{{ url_for('addItem') }}" title="Add Food">Add Food</a>
 							  </li>
+							  <li role="presentation">
+							  	<a href="{{ url_for('profile') }}" title="Profile">profile</a>
+							  </li>
+
 							</ul>
 						</div>
 					</div>
@@ -49,16 +53,16 @@
 				<div class="col-lg-4 col-lg-offset-4">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<form action="{{ url_for('main.add_food_to_log', log_id=log.id) }}" method="POST" role="form">
+							<form action="{{ url_for('add_food_to_log',log_id=log.0) }}" method="POST" role="form">
 
 								<div class="form-group">
 									<label>Add Food</label>
 									<div class="input-group">
 									  <select class="form-control" name="food-select">
-										  {% for food in foods %}
-											<option value="{{ food.id }}">{{ food.name }}</option>
-									      {% endfor %}
-					                    </select>
+										  {% for food in food_items %}
+										  <option value="{{ food.0 }}">{{food.1}}</option>
+										  {% endfor %}
+									  </select>
 									  <span class="input-group-btn">
 										<button type="submit" class="btn btn-primary" id="add-btn">
 										  <i class="glyphicon glyphicon-plus-sign"></i> Add Food
@@ -66,7 +70,6 @@
 									  </span>
 									</div>
 								</div>
-
 							</form>
 						</div>
 					</div>
@@ -78,28 +81,36 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<h3 class="lean-h text-black">
-								<i class="glyphicon glyphicon-calendar"></i> {{ log.date.strftime('%B %d, %Y') }}
+								<i class="glyphicon glyphicon-calendar"></i>  {{ log.1 }}
 							</h3>
 
 							<div class="row">
 								<div class="col-lg-3">
 									<h4 class="lean-h">
-										Protein: &nbsp;<strong class="f25">{{ totals['protein'] }}</strong>
+										Protein: &nbsp;<strong class="f25">{{ totals.protein }}</strong>
 									</h4>
 								</div>
 								<div class="col-lg-3">
 									<h4 class="lean-h">
-										Carbohydrates: <strong class="f25">{{ totals['carbs'] }}</strong>
+										Carbs: <strong class="f25">{{ totals.carbs }}</strong>
 									</h4>
 								</div>
 								<div class="col-lg-3">
 									<h4 class="lean-h">
-										Fat: <strong class="f25">{{ totals['fat'] }}</strong>
+										Fat: <strong class="f20">{{ totals.fats }}</strong>
 									</h4>
 								</div>
+							</div>
+							<div class="row">
 								<div class="col-lg-3">
 									<h4 class="lean-h">
-										Calories: <strong class="f25">{{ totals['calories'] }}</strong>
+										Fiber: <strong class="f25">{{ totals.fibers }}</strong>
+									</h4>
+								</div>
+
+								<div class="col-lg-3">
+									<h4 class="lean-h">
+										Calories: <strong class="f25">{{ totals.calories }}</strong>
 									</h4>
 								</div>
 							</div>
@@ -113,17 +124,18 @@
 										<th style="width: 10%;">Protein</th>
 										<th style="width: 16%;">Carbohydrates</th>
 										<th style="width: 10%;">Fat</th>
+										<th style="width: 10%;">Fibers</th>
 										<th style="width: 12%;">Calories</th>
 										<th style="width: 20%;">Actions</th>
 									</tr>
 								</thead>
 								<tbody>
-									{% for food in log.foods %}
+									{% for fooding in listing %}
 									<tr>
-										<td>{{ loop.index }}</td><td>{{ food.name }}</td><td>{{ food.proteins }}</td>
-										<td>{{ food.carbs }}</td><td>{{ food.fats }}</th><td>{{ food.calories }}</td>
+										<td>{{ loop.index }}</td><td>{{ fooding.0 }}</td><td>{{ fooding.1 }}</td><td>{{ fooding.2 }}</td>
+										<td>{{ fooding.3 }}</td><td>{{ fooding.4 }}</td><td>{{ fooding.5 }}</td>
 										<td>
-											<a href="{{ url_for('main.remove_food_from_log', log_id=log.id, food_id=food.id) }}" class="btn btn-danger btn-xs">
+											<a href="{{ url_for('delete_food_from_log', log_id=log.0, food_id=fooding.6) }}" class="btn btn-danger btn-xs">
 												<i class="glyphicon glyphicon-trash"></i> Delete
 											</a>
 										</td>
@@ -136,14 +148,18 @@
 				</div>
 			</div>
 
-			<footer>
-				<div class="row pad">
-					<div class="col-lg-12 text-center">
-						Contact Us: <strong>Calorimeter@gmail.com</strong>
-					</div>
-				</div>
-			</footer>
+		</div>
 
+		<div class="footer-ids">
+				<footer>
+					<hr>
+					<div class="row pad">
+						<div class="col-lg-12 text-center">
+							Contact Us: <strong>Calorimeter@gmai.com</strong>
+						</div>
+					</div>
+				</footer>
+			</div>
 		</div>
 
 		<!-- jQuery -->

@@ -9,7 +9,7 @@ body {
 	position: relative;
 	min-height: 180px;
 	background: rgba(44, 62, 80, .8);
-	background-image: url('./static/img/bg.jpg');
+	background-image: url('./img/bg.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
 	border-bottom: 2px solid rgba(44, 62, 80, .8);
@@ -19,6 +19,9 @@ body {
 	position: absolute;
 	height: 183px;
 	width: 100%;
+	background-image: url('./img/bg.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
 	background: rgba(44, 62, 80, .8);
 }
 #homeJumbo h1 {
@@ -75,8 +78,14 @@ body {
 .text-white {
 	color: white !important;
 }
-footer {
-	margin-top: 20px;
-	color: black;
-	margin-bottom: 20px;
+
+.workingg{
+text-align: center;
+padding-bottom:100px;
+}
+.footer-ids{
+    color: #fff;
+    width:100%
+    margin-top: 50px;
+    background: #000;
 }
