@@ -4,18 +4,25 @@
     <title>Login Sample</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Stylesheet-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stdInfoPage.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='authenticate.css')}}">
 </head>
-<body>
-<div class="container-fluid background">
+<body class="bg-nav">
+<!--Container class -->
+<div class="container-fluid">
     <div class="row">
+        <!--Dividing in sections -->
         <div class="col-md-4 col-sm-4 col-xs-12"></div>
         <div class="col-md-4 col-sm-4 col-xs-12">
+            <!--Input form-->
             <form class="bg form-container" method="post" action="{{ url_for('stdinfo_validation') }}">
+                <!-- Title -->
                 <p class="topic">
                     Calorimeter
                 </p>
+                <!--Input details-->
                 <div class="mb-3">
                     <label for="exampleInputHeight1" class="form-label">How tall are you?</label>
                     <input type="number" class="form-control" id="exampleInputHeight1" name="ht" placeholder="Height" aria-describedby="nameHelp">
@@ -24,14 +31,23 @@
                     <label for="exampleInputWeight1" class="form-label">How much do you weigh?</label>
                     <input type="number" class="form-control" id="exampleInputWeight1" name="wt" placeholder="Weight" aria-describedby="emailHelp">
                 </div>
+                <!--Input date type-->
                 <div class="mb-3">
                     <label for="exampleInputAge1" class="form-label">How old are you?</label>
                     <input type="date" class="form-control" name="date1" id="exampleInputAge1">
-               <div class="mb-3 btn-group" style="width:100%">
-                   <button type="button" class="btn" value="male" onclick="select(this)" name="gender" style="width:50%">Male</button>
-                   <button type="button" class="btn" value="female" onclick="select(this)" name="gender" style="width:50%">Female</button>
-               </div>
                 </div>
+                <div class="mb-1">
+                    <label class="form-label">Gender</label>
+                </div>
+                <!-- drop down input type for gender -->
+               <div class="mb-4 btn-group" style="width:100%">
+                   <select class="form-control" name="gender">
+                       <option value="male">Male</option>
+                       <option value="female">Female</option>
+                       <option value="others">Others</option>
+				  </select>
+               </div>
+                <!--Submit button-->
                 <button type="submit" class="btn btn-primary btn-success btn-block next-btn">Next</button>
             </form>
         </div>

@@ -8,7 +8,7 @@
 
 		<link href="https://fonts.googleapis.com/css?family=Oswald|Ubuntu:400,700" rel="stylesheet">
 
-		<!-- Bootstrap CSS -->
+		<!-- stylesheet CSS -->
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/united.min.css') }}" />
 		<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}" />
 
@@ -20,18 +20,20 @@
 		<![endif]-->
 	</head>
 	<body>
-
+		<!--container class -->
 		<div class="container-fluid" id="wrapper">
+
 
 			<div class="row" id="homeJumbo">
 				<div class="overlay"></div>
 				<div class="col-lg-12">
+					<!--Title-->
 					<h1>
 						<a href="{{ url_for('home') }}">Calorimeter</a>
 					</h1>
-
+					<!--Navigation-->
 					<div class="row t20">
-						<div class="col-lg-4 col-lg-offset-4">
+						<div class="col-lg-6 col-lg-offset-3">
 							<ul class="nav nav-pills nav-justified">
 							  <li role="presentation">
 							  	<a href="{{ url_for('home') }}" title="Home">Home</a>
@@ -39,8 +41,22 @@
 							  <li role="presentation">
 							  	<a href="{{ url_for('addItem') }}" title="Add Food">Add Food</a>
 							  </li>
+								<li role="presentation">
+							  		<a href="{{ url_for('bmi_calculator') }}" title="BMI">BMI</a>
+							  	</li>
+								<li role="presentation">
+							  		<a href="{{ url_for('recipes_page') }}" title="Recipes">Recipes</a>
+							  	</li>
+								<!--Drop down menu-->
 							  <li role="presentation">
-							  	<a href="{{ url_for('profile') }}" title="Profile">profile</a>
+									<a class=" dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
+									<div class="dropdown-menu">
+										<a class="dropdown-item drpdown-menu" style="color:black; padding:5px 10px;" href="{{ url_for('security') }}">Security</a>
+										<hr style="margin-top:10px;margin-bottom:10px;">
+										<a class="dropdown-item drpdown-menu" style="color:black; padding:5px 10px;" href="#">About</a>
+										<hr style="margin-top:10px;margin-bottom:10px;">
+										<a class="dropdown-item drpdown-menu" style="color:black; padding:5px 10px;" href="{{ url_for('logout') }}">logout</a>
+									</div>
 							  </li>
 
 							</ul>
@@ -49,26 +65,50 @@
 				</div>
 			</div>
 
+			<!--food and water selection section-->
 			<div class="row t20">
 				<div class="col-lg-4 col-lg-offset-4">
 					<div class="panel panel-default">
 						<div class="panel-body">
+							<!--Select food to log-->
 							<form action="{{ url_for('add_food_to_log',log_id=log.0) }}" method="POST" role="form">
-
 								<div class="form-group">
 									<label>Add Food</label>
 									<div class="input-group">
+										<!--Quantity-->
+									  <span class="input-group-btn">
+										  <input class="form-control" style="width: 93px;" placeholder="quantity" type="number" name="food-quantity">
+									  </span>
+										<!--Select food item-->
 									  <select class="form-control" name="food-select">
 										  {% for food in food_items %}
 										  <option value="{{ food.0 }}">{{food.1}}</option>
 										  {% endfor %}
 									  </select>
+										<!--Submit button-->
 									  <span class="input-group-btn">
 										<button type="submit" class="btn btn-primary" id="add-btn">
 										  <i class="glyphicon glyphicon-plus-sign"></i> Add Food
 										</button>
 									  </span>
 									</div>
+									<br>
+								</div>
+							</form>
+							<!-- select water glasses -->
+							<form action="{{ url_for('add_water_to_log',log_id=log.0) }}" method="POST" role="form">
+								<div class="input-group">
+								<label>Drink water</label>
+									 <!--Water quantity -->
+									 <span class="input-group-btn">
+										  <input class="form-control" style="width: 150px;" placeholder="quantity" type="number" name="water-quantity">
+									  </span>
+									  <!-- Submit button-->
+									  <span class="input-group-btn">
+										<button type="submit" class="btn btn-primary">
+										  <i class="glyphicon glyphicon-glass"></i> Add Water
+										</button>
+									  </span>
 								</div>
 							</form>
 						</div>
@@ -76,64 +116,80 @@
 				</div>
 			</div>
 
+			<!--display total section-->
 			<div class="row t20">
 				<div class="col-lg-8 col-lg-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
+							<!-- display date-->
 							<h3 class="lean-h text-black">
 								<i class="glyphicon glyphicon-calendar"></i>  {{ log.1 }}
 							</h3>
+							<hr>
 
+							<!-- display total of other details-->
 							<div class="row">
 								<div class="col-lg-3">
 									<h4 class="lean-h">
-										Protein: &nbsp;<strong class="f25">{{ totals.protein }}</strong>
+										Protein: &nbsp;{{ totals.protein }}
 									</h4>
 								</div>
 								<div class="col-lg-3">
 									<h4 class="lean-h">
-										Carbs: <strong class="f25">{{ totals.carbs }}</strong>
+										Carbohydrates: &nbsp;{{ totals.carbs }}
 									</h4>
 								</div>
 								<div class="col-lg-3">
 									<h4 class="lean-h">
-										Fat: <strong class="f20">{{ totals.fats }}</strong>
+										Fat: &nbsp;{{ totals.fats }}
 									</h4>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-3">
 									<h4 class="lean-h">
-										Fiber: <strong class="f25">{{ totals.fibers }}</strong>
+										Fiber: &nbsp;{{ totals.fibers }}
 									</h4>
 								</div>
 
 								<div class="col-lg-3">
 									<h4 class="lean-h">
-										Calories: <strong class="f25">{{ totals.calories }}</strong>
+										Calories: &nbsp;{{ totals.calories }}/{{ net_calories.0 }}
+									</h4>
+								</div>
+								<div class="col-lg-3">
+									<h4 class="lean-h">
+										Water:  &nbsp;{{ totals.water }}/8
 									</h4>
 								</div>
 							</div>
 						</div>
+
+						<!-- display specific food log -->
+						<!--table-->
 						<div class="table-responsive">
 							<table class="table table-striped table-hover table-bordered">
+								<!-- table title -->
 								<thead>
 									<tr>
 										<th style="width: 5%;">#</th>
+										<th style="width: 5%;">Qty</th>
 										<th>Name</th>
 										<th style="width: 10%;">Protein</th>
 										<th style="width: 16%;">Carbohydrates</th>
 										<th style="width: 10%;">Fat</th>
 										<th style="width: 10%;">Fibers</th>
 										<th style="width: 12%;">Calories</th>
-										<th style="width: 20%;">Actions</th>
+										<th style="width: 10%;">Actions</th>
 									</tr>
 								</thead>
+								<!--table details-->
 								<tbody>
 									{% for fooding in listing %}
 									<tr>
-										<td>{{ loop.index }}</td><td>{{ fooding.0 }}</td><td>{{ fooding.1 }}</td><td>{{ fooding.2 }}</td>
+										<td>{{ loop.index }}</td><td>{{ fooding.7 }}</td><td>{{ fooding.0 }}</td><td>{{ fooding.1 }}</td><td>{{ fooding.2 }}</td>
 										<td>{{ fooding.3 }}</td><td>{{ fooding.4 }}</td><td>{{ fooding.5 }}</td>
+										<!--delete link-->
 										<td>
 											<a href="{{ url_for('delete_food_from_log', log_id=log.0, food_id=fooding.6) }}" class="btn btn-danger btn-xs">
 												<i class="glyphicon glyphicon-trash"></i> Delete
@@ -147,24 +203,54 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 
-		<div class="footer-ids">
-				<footer>
-					<hr>
-					<div class="row pad">
-						<div class="col-lg-12 text-center">
-							Contact Us: <strong>Calorimeter@gmai.com</strong>
+		<!--clearing to avoid overlapping -->
+		<div style="clear: both;"></div>
+
+		<!--footer section-->
+		<div id="footer">
+			<footer>
+				<!--title -->
+				<div class="about-part" align="center">
+					<h3>ABOUT US</h3>
+				</div>
+				<div class="row pad">
+					<!--dividing in sections-->
+					<!--row 1-->
+					<!--address-->
+					<div class="col-lg-4">
+						<h4>GUIDED BY: PROF. ANJALI MALVIYA</h4>
+						<address>
+							Thadomal Shahani Engineering College
+							W.P.G. Kher Marg, 32nd Road, Marg,
+							Off Linking Rd, TPS III, Bandra West,
+							Mumbai, Maharashtra 400050
+						</address>
+					</div>
+					<!--row 2-->
+					<div class="col-lg-4 footer-sec" align="center">
+						<h4>Reach Us</h4>
+						<!--email us-->
+						<div class="item-contact">
+							<a href="mailto:kunalkj666@gmail.com" style="color: #fff;"><span class="link-id">1</span>:&nbsp;&nbsp;<span>kunalkj666@gmail.com</span></a><br>
+							<a href="mailto:nishvani0207@gmail.com" style="color: #fff;"><span class="link-id">2</span>:&nbsp;&nbsp;<span>nishvani0207@gmail.com</span></a><br>
+							<a href="mailto:nishid123@gmail.com" style="color: #fff;"><span class="link-id">3</span>:&nbsp;&nbsp;<span>nishid123@gmail.com</span></a>
 						</div>
 					</div>
-				</footer>
-			</div>
+					<!--row 3-->
+					<div class="col-lg-4 footer-sec" >
+						<h4>Your Valuable Feedback</h4>
+						<!--external link to google form for feedback-->
+						<h4><p><a href= "https://docs.google.com/forms/d/e/1FAIpQLSf40I20wM7LcNusoQqpF3iQtan9hx7_wuDtaqgwQ4nk-_2s6w/viewform?usp=sf_link" style="color:#fff;" target="_blank">Feedback Form</a></p></h4>
+					</div>
+				</div>
+			</footer>
 		</div>
 
 		<!-- jQuery -->
-		<!-- <script src="{{ url_for('static', filename='bs/js/jquery.min.js') }}"></script> -->
+		 <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 		<!-- Bootstrap JavaScript -->
-		<!-- <script src="{{ url_for('static', filename='bs/js/bootstrap.min.js') }}"></script> -->
+		 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 	</body>
 </html>

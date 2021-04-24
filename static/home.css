@@ -47,6 +47,7 @@ body {
 	font-size: 25px;
 }
 
+
 .nav-pills>li.active>a, .nav-pills>li.active>a:hover,
 .nav-pills>li.active>a:focus {
 	color: white;
@@ -83,9 +84,37 @@ body {
 text-align: center;
 padding-bottom:100px;
 }
-.footer-ids{
+
+#footer{
+    padding: 10px;
     color: #fff;
-    width:100%
-    margin-top: 50px;
-    background: #000;
+    width:100%;
+    margin-top: 300px;
+    background: #303030;
+    position: relative;
+}
+ .about-part {
+    margin-bottom: 40px;
+ }
+
+#water-link{
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+ .drpdown-menu:hover{
+ text-decoration:none;
+ }
+
+img {
+border: 1px solid black;}
+
+.recipes_style {
+    background:white;
+    margin-top:40px;
+    margin-left:130px;
+    border-radius: 10px;
+}
+
+.nutrition-spacing{
+    margin-left:20px;
 }

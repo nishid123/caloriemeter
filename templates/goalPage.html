@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login Sample</title>
+    <title>Goal Page</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,35 +13,28 @@
 <!--Container class -->
 <div class="container-fluid">
     <div class="row">
-        <!--Dividing in sections-->
+        <!-- Dividing in sections -->
         <div class="col-md-4 col-sm-4 col-xs-12"></div>
         <div class="col-md-4 col-sm-4 col-xs-12">
 
-            <!--Output form-->
-            <form class="form-container bg" method="post" action="/stdWelcomePage">
+            <!--Input Form-->
+            <form class="form-container bg" method="post" action="/goalPage_validation">
                 <!--Title-->
-                <p class="mb-4 topic">
+                <p class="mb-3 topic">
                     Calorimeter
                 </p>
-                <!-- Welcome messages -->
-                <div class="mb-4 form-group">
-                    <p><h4>Welcome {{ username }} !</h4></p>
+                <!-- Input your goal -->
+                <div class="goals">
+                    <button type="submit" name="goal-weight" value="Lose Weight" class="btn btn-primary btn-block btn-success goalbtn">Lose Weight ?</button>
                 </div>
-
-                <div class="mb-4 form-group">
-                    <p><h4>Your BMI: {{ bmi }} </h4></p>
+                <div class="goals">
+                    <button type="submit" name="goal-weight" value="Maintain Weight" class="btn btn-primary btn-block btn-success goalbtn">Maintain your Weight ?</button>
                 </div>
-
-                <div class="mb-4 form-group">
-                    <p><h4>Your Daily Calories: {{ calories }} to {{ goal_weight }} </h4></p>
+                <div class="goals">
+                    <button type="submit" name="goal-weight" value="Gain Weight" class="btn btn-primary btn-block btn-success goalbtn">Gain Weight ?</button>
                 </div>
-
-                <!--Submit button-->
-                <button type="submit" class="btn btn-primary btn-block btn-success next-btn">Done</button>
             </form>
-
         </div>
-        <div class="col-md-4 col-sm-4 col-xs-12"></div>
     </div>
 </div>
 

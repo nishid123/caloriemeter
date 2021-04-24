@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Security</title>
+
+		<link href="https://fonts.googleapis.com/css?family=Oswald|Ubuntu:400,700" rel="stylesheet">
+
+		<!-- stylesheet CSS -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/united.min.css') }}" >
+		<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}" >
+		<link rel="stylesheet" media="screen" type="text/css" href="{{ url_for('static', filename='authenticate.css')}}">
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!-- [if lt IE 9]
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif] -->
+	</head>
+	<body>
+		<!--container class-->
+		<div class="container-fluid" id="wrapper">
+
+			<div class="row" id="homeJumbo">
+				<div class="overlay"></div>
+				<div class="col-lg-12">
+					<!--title-->
+					<h1>
+						<a href="{{ url_for('home') }}">Calorimeter</a>
+					</h1>
+
+					<div class="row t20">
+						<div class="col-lg-6 col-lg-offset-3">
+							<!--navigation-->
+							<ul class="nav nav-pills nav-justified">
+								<li role="presentation">
+							  		<a href="{{ url_for('home') }}" title="Home">Home</a>
+							  	</li>
+							  	<li role="presentation">
+							  		<a href="{{ url_for('addItem') }}" title="Add Food Item">Add Food</a>
+							  	</li>
+								<li role="presentation">
+							  		<a href="{{ url_for('bmi_calculator') }}" title="BMI">BMI</a>
+							  	</li>
+								<li role="presentation">
+							  		<a href="{{ url_for('recipes_page') }}" title="Recipes">Recipes</a>
+							  	</li>
+								<!--dropdown menu -->
+								<li role="presentation" class="active">
+									<a class=" dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
+									<div class="dropdown-menu">
+										<a class="dropdown-item drpdown-menu" style="color:black; padding:5px 10px;" href="{{ url_for('security') }}">Security</a>
+										<hr style="margin-top:10px;margin-bottom:10px;">
+										<a class="dropdown-item drpdown-menu" style="color:black; padding:5px 10px;" href="#">About</a>
+										<hr style="margin-top:10px;margin-bottom:10px;">
+										<a class="dropdown-item drpdown-menu" style="color:black; padding:5px 10px;" href="{{ url_for('logout') }}">logout</a>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- security form -->
+			<div class="row">
+			<!-- dividing in sections-->
+			<div class="col-md-4 col-sm-4 col-xs-12"></div>
+			<div class="col-md-4 col-sm-4 col-xs-12">
+				<!--input form-->
+				<form class="form-container bg" method="post" action="/change_password">
+					<!-- Flashed messages -->
+					<div>
+						{% with messages = get_flashed_messages(with_categories=true) %}
+							{% if messages %}
+								{% for category, message in messages %}
+									<div class="alert alert-dismissible alert-{{ category }}">
+										<button type="button" class="close" data-dismiss="alert">&times;</button>
+										<span class="message">{{ message }}</span>
+									</div>
+								{% endfor %}
+							{% endif %}
+						{% endwith %}
+					</div>
+					<!--input details -->
+					<div class="form-group">
+						<label for="Previous-password">Current Password*</label>
+						<input type="password" class="form-control" id="Previous-password" name="current-password" placeholder="Current Password" aria-describedby="Previous-passHelp">
+					</div>
+					<div class="form-group">
+						<label for="New-Password">Set New Password</label>
+						<input type="password" class="form-control" placeholder="New Password" name="new-password" id="New-password">
+					</div>
+					<div class="form-group">
+						<label for="Confirm-New-Password">Confirm Password</label>
+						<input type="text" class="form-control" placeholder="Confirm" name="confirm-password" id="Confirm-New-password">
+					</div>
+					<!--submit button-->
+					<button type="submit" class="btn btn-primary btn-block btn-success">Change Password</button>
+
+				</form>
+			</div>
+		</div>
+		</div>
+
+		<!--Clearing to avoid overlapping-->
+		<div style="clear: both;"></div>
+
+		<!--footer section-->
+		<div id="footer">
+			<footer>
+				<!--footer title-->
+				<div class="about-part" align="center">
+					<h3>ABOUT US</h3>
+				</div>
+				<div class="row pad">
+					<!--dividing into sections-->
+					<!--row 1-->
+					<!--address -->
+					<div class="col-lg-4">
+						<h4>GUIDED BY: PROF. ANJALI MALVIYA</h4>
+						<address>
+							Thadomal Shahani Engineering College
+							W.P.G. Kher Marg, 32nd Road, Marg,
+							Off Linking Rd, TPS III, Bandra West,
+							Mumbai, Maharashtra 400050
+						</address>
+					</div>
+					<!--row 2-->
+					<div class="col-lg-4 footer-sec" align="center">
+						<h4>Reach Us</h4>
+						<!--email us-->
+						<div class="item-contact">
+							<a href="mailto:kunalkj666@gmail.com" style="color: #fff;"><span class="link-id">1</span>:&nbsp;&nbsp;<span>kunalkj666@gmail.com</span></a><br>
+							<a href="mailto:nishvani0207@gmail.com" style="color: #fff;"><span class="link-id">2</span>:&nbsp;&nbsp;<span>nishvani0207@gmail.com</span></a><br>
+							<a href="mailto:nishid123@gmail.com" style="color: #fff;"><span class="link-id">3</span>:&nbsp;&nbsp;<span>nishid123@gmail.com</span></a>
+						</div>
+					</div>
+					<!--row 3-->
+					<div class="col-lg-4 footer-sec" >
+						<h4>Your Valuable Feedback</h4>
+						<!--external link of google form for feedback-->
+						<h4><p><a href= "https://docs.google.com/forms/d/e/1FAIpQLSf40I20wM7LcNusoQqpF3iQtan9hx7_wuDtaqgwQ4nk-_2s6w/viewform?usp=sf_link" style="color:#fff;" target="_blank">Feedback Form</a></p>
+						</h4>
+					</div>
+				</div>
+			</footer>
+		</div>
+		<!-- jQuery -->
+		 <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+		<!-- Bootstrap JavaScript -->
+		<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	</body>
+</html>

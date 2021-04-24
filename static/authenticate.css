@@ -1,10 +1,14 @@
- .background {
- background: url('bg.jpg') no-repeat;
- width: 100%;
- background-position: center;
- background-size: cover;
- height: 600px;
+ .bg {
+ background-color: #80BD9E;
  }
+
+body.bg-nav {
+    background-image: url('./img/signup.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+}
 
 .form-container {
 margin-top: 50px;
@@ -12,18 +16,34 @@ border: 1px solid #000;
 padding: 30px 60px
 }
 
- .bg {
- background-color: #80BD9E;
- }
-
 .topic {
 font-size: 40px;
 text-align: center;
 Font-family: "Times New Roman", "Times";
 }
 
-.gender{
-background-color: #fff;
+.btn-success{
+background-color: #CB4E47;
+}
+
+ .form-group {
+margin-top: 20px;
+}
+
+.to-signup, .to-login{
+margin-top: 10px;
+}
+
+a:link {
+  color: green;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #000;
+  background-color: transparent;
+  text-decoration: none;
 }
 
 .next-btn{
@@ -31,7 +51,7 @@ background-color: #CB4E47;
 }
 
 .btn-group button{
-margin-top: 22px;
+  margin-top: 22px;
   border: 1px solid green; /* Green border */
   padding: 10px 24px; /* Some padding */
   cursor: pointer; /* Pointer/hand icon */
@@ -55,4 +75,11 @@ margin-top: 22px;
 .btn-group button:focus {
   background-color: #3e8e41;
 }
+.goals{
+    margin-top:30px;
+}
 
+.goalbtn{
+color: #000;
+background-color:#b2cfbd;
+}
