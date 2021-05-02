@@ -1,6 +1,6 @@
 body {
-	background: rgba(0, 0, 0, .4);
-	font-family: 'Ubuntu', sans-serif;
+	background: #cbd4c5;
+	font-family: 'Roboto';
 }
 #wrapper {
 }
@@ -22,12 +22,13 @@ body {
 	background-image: url('./img/bg.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
-	background: rgba(44, 62, 80, .8);
+
 }
 #homeJumbo h1 {
-	font-size: 30px;
-	color: white;
-	font-family: 'Oswald';
+    margin-top: 40px;
+	font-size: 40px;
+	color: #a3c563;
+	font-family: 'Roboto';
 	text-align: center;
 	padding-top: 20px;
 	font-weight: bolder;
@@ -50,13 +51,13 @@ body {
 
 .nav-pills>li.active>a, .nav-pills>li.active>a:hover,
 .nav-pills>li.active>a:focus {
-	color: white;
-	border-bottom: 3px solid #2fa4e7;
+	color: #676f6b;
+	border-bottom: 3px solid #c3da99;
 	font-weight: bolder;
-	background: rgba(0, 0, 0, .4);
+	background: #e5e9e2;
 }
 .nav-justified>li>a {
-	color: white;
+	color: #676f6b;
 	font-weight: bolder;
 }
 .nav>li>a:hover, .nav>li>a:focus {
@@ -90,7 +91,7 @@ padding-bottom:100px;
     color: #fff;
     width:100%;
     margin-top: 300px;
-    background: #303030;
+    background: #375d4d;
     position: relative;
 }
  .about-part {
@@ -105,16 +106,36 @@ padding-bottom:100px;
  text-decoration:none;
  }
 
-img {
+.recipe_image {
 border: 1px solid black;}
 
 .recipes_style {
     background:white;
     margin-top:40px;
     margin-left:130px;
-    border-radius: 10px;
+
 }
 
-.nutrition-spacing{
-    margin-left:20px;
+.recipes_display{
+    background:white;
+    margin-top:40px;
 }
+
+.text-block {
+  position: absolute;
+  bottom: 40px;
+  right: 0;
+  color: #011910;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.about-title{
+font-size: 80px;
+}
+
+.about-info{
+float: left;
+clear:both;
+}
+

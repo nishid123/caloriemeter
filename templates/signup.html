@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Stylesheets -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='authenticate.css')}}">
 </head>
@@ -20,7 +21,7 @@
             <form class="bg form-container" method="post" action="/signup_validation">
                 <!-- Title -->
                 <p class="topic">
-                    Calorimeter
+                    caloriemeter
                 </p>
                 <!-- Displaying respective flash messages -->
                 <div >
@@ -54,9 +55,9 @@
                     <input type="password" class="form-control" placeholder="Password" name="pswd" id="exampleInputPassword1">
                 </div>
                 <!-- Submit Button -->
-                <button type="submit" class="btn btn-primary btn-success btn-block">Signup</button>
+                <button type="submit" class="btn btn-primary btn-success btn-block">S I G N U P</button>
                 <!-- To login page -->
-                <div class="to-login">
+                <div class="to-login mb-3">
                     <a href="/" target="_self">Already an account?</a>
                 </div>
             </form>

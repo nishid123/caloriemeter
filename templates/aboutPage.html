@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>View Details</title>
+
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+		<!-- stylesheet CSS -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/united.min.css') }}" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}" />
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<!--container class -->
+		<div class="container-fluid" id="wrapper">
+
+
+			<div class="row" id="homeJumbo">
+				<div class="overlay"></div>
+				<div class="col-lg-12">
+					<!--Title-->
+					<h1  class="row">
+						<div class="col-lg-6">
+						<a href="{{ url_for('home') }}" >caloriemeter</a>
+						</div>
+					</h1>
+					<!--Navigation-->
+					<div class="row t20">
+						<div class="col-lg-6 ">
+							<ul class="nav nav-pills nav-justified">
+							  <li role="presentation">
+							  	<a href="{{ url_for('home') }}" title="Home">Home</a>
+							  </li>
+							  <li role="presentation">
+							  	<a href="{{ url_for('addItem') }}" title="Add Food">Add Food</a>
+							  </li>
+								<li role="presentation">
+							  		<a href="{{ url_for('bmi_calculator') }}" title="BMI">BMI</a>
+							  	</li>
+								<li role="presentation">
+							  		<a href="{{ url_for('recipes_page') }}" title="Recipes">Recipes</a>
+							  	</li>
+								<!--Drop down menu-->
+							  <li role="presentation">
+									<a class=" dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
+									<div class="dropdown-menu">
+										<a class="dropdown-item drpdown-menu" style="color:black; padding:5px 10px;" href="{{ url_for('security') }}">Security</a>
+										<hr style="margin-top:10px;margin-bottom:10px;">
+										<a class="dropdown-item drpdown-menu" style="color:black; padding:5px 10px;" href="{{ url_for('aboutPage') }}">About</a>
+										<hr style="margin-top:10px;margin-bottom:10px;">
+										<a class="dropdown-item drpdown-menu" style="color:black; padding:5px 10px;" href="{{ url_for('logout') }}">logout</a>
+									</div>
+							  </li>
+
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<img src="/static/img/about_cover.jpg" height="600px;" width="100%">
+			<div class="text-block">
+				<h1 class="about-title"><strong>You are</strong></h1>
+				<h1 class="about-title"><strong>what you eat</strong></h1>
+				<h2><strong>so don't be fast, cheap, easy, and fake.</strong></h2>
+  			</div>
+		</div>
+		<br><br><br><br>
+		<div class="container-fluid">
+			<div class="col-lg-6">
+				<h4>If you are like lots of people out there who are struggling to achieve a healthy lifestyle, there are chances that you may have heard a lot of things concerning counting calories.
+				Estimating portion sizes or guesstimating the calorie contents of meals can potentially work if you’ve spent several years measuring, weighing, and tracking your food, but if you’re new to the world of dieting and weight loss, you’re likely to experience greater success by tracking your calorie intake.
+					And, while calorie counting is often panned by diet “gurus” and fasting experts, the simple truth is that it actually works. The only way to know by yourself is - ‘ caloriemeter’.</h4>
+				<h4>Caloriemeter is a modern day calorie tracking application, taking you a step forward  towards a healthy lifestyle. This application will calculate your daily calorie intake and track the same by the inputs given from your wide database. The user can choose any of the three goals- loose weight, maintain your weight or gain in weight, and caloriemeter will help to achieve the same. You can also look after your daily water intake. Not only your calories intake, this application can also keep a track on the your calories burned.
+				Further, there are various healthy recipes provided to the user which the user can adapt in their lifestyle</h4>
+			</div>
+			<div class="col-lg-6">
+				<img src="/static/img/about_calcs.jpeg" height="370px" width="550px;">
+			</div>
+		</div><br><br><br>
+		<div class="container-fluid">
+			<h1 align="center">Develop Healthy Habits with us</h1>
+			<div class="col-lg-3" style="margin-left:150px;">
+				<br>
+				<div class="panel panel-warning">
+					<div class="panel-body text-bold" align="center">
+						<img src="/static/img/about_food.png" style="height:100px; width:100px;">
+						<h3>Track food intake</h3>
+						<h5>Log your meals and track all your macro and micro to stay focused on your diet.</h5>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<br>
+				<div class="panel panel-warning">
+					<div class="panel-body text-bold" align="center">
+						<img src="/static/img/about_water.png" style="height:100px; width:100px;">
+						<h3>Track water</h3>
+						<h5>Track water intake to make sure you're getting the recommended amount daily.</h5>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<br>
+				<div class="panel panel-warning">
+					<div class="panel-body text-bold" align="center">
+						<img src="/static/img/about_exercise.png" style="height:100px; width:100px;">
+						<h3>Track exercise</h3>
+						<h5>Track exercise daily to be more active and get one step closer to your desired goal.</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--clearing to avoid overlapping -->
+		<div style="clear: both;"></div>
+
+		<!--footer section-->
+		<div id="footer">
+			<footer>
+				<!--title -->
+				<div class="about-part" align="center">
+					<h3>ABOUT US</h3>
+				</div>
+				<div class="row pad">
+					<!--dividing in sections-->
+					<!--row 1-->
+					<!--address-->
+					<div class="col-lg-4">
+						<h4>GUIDED BY: PROF. ANJALI MALVIYA</h4>
+						<address>
+							Thadomal Shahani Engineering College
+							W.P.G. Kher Marg, 32nd Road, Marg,
+							Off Linking Rd, TPS III, Bandra West,
+							Mumbai, Maharashtra 400050
+						</address>
+					</div>
+					<!--row 2-->
+					<div class="col-lg-4 footer-sec" align="center">
+						<h4>Reach Us</h4>
+						<!--email us-->
+						<div class="item-contact">
+							<a href="mailto:kunalkj666@gmail.com" style="color: #fff;"><span class="link-id">1</span>:&nbsp;&nbsp;<span>kunalkj666@gmail.com</span></a><br>
+							<a href="mailto:nishvani0207@gmail.com" style="color: #fff;"><span class="link-id">2</span>:&nbsp;&nbsp;<span>nishvani0207@gmail.com</span></a><br>
+							<a href="mailto:nishid123@gmail.com" style="color: #fff;"><span class="link-id">3</span>:&nbsp;&nbsp;<span>nishid123@gmail.com</span></a>
+						</div>
+					</div>
+					<!--row 3-->
+					<div class="col-lg-4 footer-sec" >
+						<h4>Your Valuable Feedback</h4>
+						<!--external link to google form for feedback-->
+						<h4><p><a href= "https://docs.google.com/forms/d/e/1FAIpQLSf40I20wM7LcNusoQqpF3iQtan9hx7_wuDtaqgwQ4nk-_2s6w/viewform?usp=sf_link" style="color:#fff;" target="_blank">Feedback Form</a></p></h4>
+					</div>
+				</div>
+			</footer>
+		</div>
+
+		<!-- jQuery -->
+		 <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+		<!-- Bootstrap JavaScript -->
+		 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	</body>
+</html>

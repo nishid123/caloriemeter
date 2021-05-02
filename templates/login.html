@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Stylesheets -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" media="screen" type="text/css" href="{{ url_for('static', filename='authenticate.css')}}">
@@ -14,7 +15,7 @@
 <body class="bg-nav">
 
 <!--Container class -->
-<div class="container-fluid ">
+<div class="container-fluid">
 
     <!--Dividing the webpage in sections of 3-->
     <div class="row">
@@ -23,10 +24,11 @@
 
             <!-- Input Form -->
             <form class="form-container bg" method="post" action="/login_validation">
+
                 <!--Title-->
-                <p class="mb-3 topic">
-                    Calorimeter
-                </p>
+                <div class="mb-3 topic">
+                    caloriemeter
+                </div>
                 <!--Displaying respective flashes-->
                 <div>
                     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -34,9 +36,6 @@
                             {% for category, message in messages %}
                                 <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
                                     <span class="message"> {{ message }} </span>
-                                    <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                     </button>-->
                                 </div>
                             {% endfor %}
 
@@ -51,13 +50,13 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
                     <input type="password" class="form-control" placeholder="Password" name="pswd" id="exampleInputPassword1">
-                </div>
+                </div><br>
                 <!--Submit Button -->
-                <button type="submit" class="btn btn-primary btn-block btn-success">Login</button>
+                <button type="submit" class="btn btn-primary btn-block btn-success"><strong>L O G I N</strong></button>
                 <!-- Switch to sign-up -->
                 <div class="to-signup" >
                     <p>
-                        Not a member?<a href="/signup" target="_self">Sign up</a>
+                        Not a member? <a href="/signup" target="_self">Sign up</a>
                     </p>
                 </div>
             </form>

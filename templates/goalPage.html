@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--Stylesheet-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" media="screen" type="text/css" href="{{ url_for('static', filename='authenticate.css')}}">
 </head>
@@ -21,17 +22,17 @@
             <form class="form-container bg" method="post" action="/goalPage_validation">
                 <!--Title-->
                 <p class="mb-3 topic">
-                    Calorimeter
+                    caloriemeter
                 </p>
                 <!-- Input your goal -->
                 <div class="goals">
-                    <button type="submit" name="goal-weight" value="Lose Weight" class="btn btn-primary btn-block btn-success goalbtn">Lose Weight ?</button>
+                    <button type="submit" name="goal-weight" value="Lose Weight" class="btn btn-primary btn-block btn-success goalbtn">Lose Weight </button>
                 </div>
                 <div class="goals">
-                    <button type="submit" name="goal-weight" value="Maintain Weight" class="btn btn-primary btn-block btn-success goalbtn">Maintain your Weight ?</button>
+                    <button type="submit" name="goal-weight" value="Maintain Weight" class="btn btn-primary btn-block btn-success goalbtn">Maintain your Weight </button>
                 </div>
-                <div class="goals">
-                    <button type="submit" name="goal-weight" value="Gain Weight" class="btn btn-primary btn-block btn-success goalbtn">Gain Weight ?</button>
+                <div class="goals mb-3">
+                    <button type="submit" name="goal-weight" value="Gain Weight" class="btn btn-primary btn-block btn-success goalbtn">Gain Weight </button>
                 </div>
             </form>
         </div>

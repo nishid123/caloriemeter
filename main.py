@@ -4,7 +4,7 @@ from datetime import date, datetime
 
 app=Flask(__name__)
 
-app.secret_key = 'Calorimeter'
+app.secret_key = 'Caloriemeter'
 
 
 @app.route('/')
@@ -19,13 +19,17 @@ def signup():
 def stdInfoPage():
     return render_template('stdInfoPage.html')
 
-@app.route('/goalPage', methods=['POST','GET'])
+@app.route('/goalPage')
 def goalPage():
     return render_template('goalPage.html')
 
 @app.route('/stdWelcomePage', methods=['POST','GET'])
 def stdWelcomePage():
     return redirect('/')
+
+@app.route('/aboutPage')
+def aboutPage():
+    return render_template('aboutPage.html')
 
 @app.route('/home')
 def home():
@@ -66,7 +70,10 @@ def home():
         single_date['carbohydrates'] = i[3]
         single_date['fats'] = i[4]
         single_date['fibers'] = i[5]
-        single_date['calories'] = i[6]
+        if(i[6] == None):
+            single_date['calories'] = i[6]
+        else:
+            single_date['calories'] = int(i[6])
         single_date['water'] = i[7]
         d = datetime.strptime(i[1],'%Y-%m-%d')
         single_date['date'] = datetime.strftime(d,'%B %d,%Y')
@@ -123,7 +130,7 @@ def viewItem(log_id):
         mydb.commit()
         mycursor3.close()
 
-        mycursor4.execute("select food_items.name, food_items.protein, food_items.carbs, food_items.fats, food_items.fibers, food_items.calories, food_items.food_id, log.quantity, date_log.water_intake from date_log join log on log.date_id = date_log.date_id join food_items on food_items.food_id = log.food_id where date_log.date_id=%s or date_log.date_id=%s ", (log_id, log_id))
+        mycursor4.execute("select food_items.name, (food_items.protein * log.quantity), (food_items.carbs *  log.quantity), (food_items.fats * log.quantity), (food_items.fibers * log.quantity), (food_items.calories * log.quantity), food_items.food_id, log.quantity, date_log.water_intake from date_log join log on log.date_id = date_log.date_id join food_items on food_items.food_id = log.food_id where date_log.date_id=%s or date_log.date_id=%s ", (log_id, log_id))
         listing = mycursor4.fetchall()
         mydb.commit()
         mycursor4.close()
@@ -136,13 +143,12 @@ def viewItem(log_id):
         totals['calories'] = 0
         for food in listing:
 
-             totals['protein'] += (food[1] * int(food[7]))
-             totals['carbs'] += (food[2] * int(food[7]))
-             totals['fats'] += (food[3] * int(food[7]))
-             totals['fibers'] += (food[4] * int(food[7]))
-             totals['calories'] += (food[5] * int(food[7]))
+             totals['protein'] += food[1]
+             totals['carbs'] += food[2]
+             totals['fats'] += food[3]
+             totals['fibers'] += food[4]
+             totals['calories'] += food[5]
              totals['water'] = food[8]
-
 
         return render_template( 'viewItem.html', food_items=food_items, log=log, listing=listing, totals=totals, net_calories=net_calories )
 
@@ -168,7 +174,79 @@ def bmi_calculator():
 
 @app.route('/recipes_page')
 def recipes_page():
-    return render_template('recipes_page.html')
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="calorimeter"
+    )
+    mycursor = mydb.cursor()
+    mycursor.execute("select * from food_recipes")
+    food_recipes = mycursor.fetchall()
+    mydb.commit()
+    mycursor.close()
+    return render_template('recipes_page.html', food_recipes=food_recipes)
+
+@app.route('/recipe_display/<string:recipe_id>')
+def recipe_display(recipe_id):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="calorimeter"
+    )
+    mycursor = mydb.cursor()
+    mycursor.execute("select * from food_recipes where recipe_id=%s or recipe_id=%s", (recipe_id, recipe_id))
+    food_recipes = mycursor.fetchone()
+    mydb.commit()
+    mycursor.close()
+    return render_template('recipe_display.html', food_recipes=food_recipes)
+
+@app.route('/exerciseLog/<string:log_id>')
+def exerciseLog(log_id):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="calorimeter"
+    )
+    mycursor1 = mydb.cursor()
+    mycursor2 = mydb.cursor()
+    mycursor3 = mydb.cursor()
+    mycursor4 = mydb.cursor()
+
+    mycursor1.execute("select * from exercise")
+    exercise_list = mycursor1.fetchall()
+    mydb.commit()
+    mycursor1.close()
+
+    mycursor2.execute("select * from date_log where date_id=%s or date_id=%s", (log_id, log_id))
+    log = mycursor2.fetchone()
+    mydb.commit()
+    mycursor2.close()
+
+    mycursor3.execute("select exercise.name, exercise_log.duration, exercise.burning_rate, exercise_log.calories_burnt, exercise.exercise_id from date_log join exercise_log on exercise_log.date_id = date_log.date_id join exercise on exercise.exercise_id = exercise_log.exercise_id where date_log.date_id=%s or date_log.date_id=%s ",(log_id, log_id))
+    listing = mycursor3.fetchall()
+    mydb.commit()
+    mycursor3.close()
+
+    useremail = session['emailid']
+    mycursor4.execute("select weight from information where email=%s or email=%s",(useremail,useremail))
+    weight = mycursor4.fetchone()
+    mydb.commit()
+    mycursor4.close()
+
+    burning_rate=[]
+    for burn in listing:
+        rates = round(float(burn[2]) * int(weight[0]),3)
+        burning_rate.append(rates)
+
+    totals = {}
+    totals['calories'] = 0
+    for exercise in listing:
+        totals['calories'] += (exercise[3])
+
+    return render_template('exerciseLog.html', exercise_list=exercise_list, log=log, listing=listing, totals=totals, burning_rate=burning_rate)
 
 @app.route('/login_validation',methods=['POST','GET'])
 def login_validation():
@@ -192,12 +270,12 @@ def login_validation():
         count=mycursor.rowcount
         if count==1:
             session["emailid"] = email
-            return redirect('/home')
+            return redirect('/aboutPage')
 
         elif count>1:
             return '<h1>Oops!!<br> Something went wrong</h1>'
         else:
-            flash("invalid Email or Password", "danger")
+            flash("Invalid Email or Password", "danger")
             return redirect('/')
     mydb.commit()
     mycursor.close()
@@ -231,7 +309,7 @@ def signup_validation():
             return redirect('/signup')
 
         if len(password)<8:
-            flash("Min Password length: 8 ","danger")
+            flash("Password too short","danger")
             return redirect("/signup")
 
         mycursor.execute("insert into information (name,email,password,height,weight,age,gender)values(%s,%s,%s,%s,%s,%s,%s)",(name,email,password,'0','0','0','0'))
@@ -252,7 +330,6 @@ def stdinfo_validation():
     )
     if "useremail" in session:
         useremail = session["useremail"]
-        username = session["username"]
 
         mycursor=mydb.cursor()
 
@@ -370,7 +447,7 @@ def addingItem():
         food_id = addingItem.get('food-id')
         if food_name == "" or protein == "" or carbs == "" or fats == "" or fibers == "":
             return redirect('/addItem')
-        calories = ((int(protein) * 4) + (int(carbs) * 4) + (int(fats) * 9) + (int(fibers) * 4))
+        calories = int((float(protein) * 4) + (float(carbs) * 4) + (float(fats) * 9) + (float(fibers) * 4))
         if food_id:
             mycursor2.execute("update food_items set name=%s,protein=%s,carbs=%s,fats=%s,fibers=%s,calories=%s where food_id=%s", (food_name, protein, carbs, fats, fibers, calories, food_id))
             mydb.commit()
@@ -432,10 +509,6 @@ def add_food_to_log(log_id):
         addtolog = request.form
         selected_food = addtolog.get('food-select')
         food_quantity = addtolog.get('food-quantity')
-        # mycursor1.execute("select * from date_log where date_id=%s or date_id=%s", (log_id, log_id))
-        # log = mycursor1.fetchone()
-        # mydb.commit()
-        # mycursor1.close()
         mycursor2.execute("insert into log (date_id,food_id,quantity)values(%s,%s,%s)", (log_id, selected_food, food_quantity ))
         mydb.commit()
         mycursor2.close()
@@ -548,6 +621,37 @@ def bmi_calculate():
 
         return render_template('bmiCalculator.html', database_hw=None , calories=calories, bmi=bmi)
 
+@app.route('/add_exercise_to_log/<string:log_id>',methods=['POST','GET'])
+def add_exercise_to_log(log_id):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="calorimeter"
+    )
+    mycursor1 = mydb.cursor()
+    mycursor2 = mydb.cursor()
+    mycursor3 = mydb.cursor()
+    useremail = session['emailid']
+    if request.method == 'POST':
+        addtolog = request.form
+        selected_exercise = addtolog.get('exercise-select')
+        duration = addtolog.get('duration')
+
+        mycursor3.execute("select weight from information where email=%s or email=%s",(useremail, useremail))
+        weight = mycursor3.fetchone()
+        mydb.commit()
+        mycursor3.close()
+
+        mycursor1.execute("select burning_rate from exercise where exercise_id=%s or exercise_id=%s",(selected_exercise, selected_exercise))
+        rate = mycursor1.fetchone()
+        calories_burnt = int(float(rate[0]) * int(weight[0]) * (int(duration)/30))
+        mycursor2.execute("insert into exercise_log (date_id,exercise_id,duration,calories_burnt)values(%s,%s,%s,%s)", (log_id, selected_exercise, duration, calories_burnt))
+        mydb.commit()
+        mycursor2.close()
+
+        return redirect(url_for('exerciseLog', log_id=log_id ))
+
 
 @app.route('/logout')
 def logout():
@@ -568,7 +672,7 @@ def calculateCal(h,w,a,gen):
     elif gen == 'female':
         cal = int(1.55 * ((10 * w) + (6.25 * h) - (5 * a) - 161))
     else:
-        cal = int(1.55 * ((10 * w) + (6.25 * h) - (5 * a)))
+        cal = int(1.55 * ((10 * w) + (6.25 * h) - (5 * a) + 5))
     return cal
 
 def calculateBmi(h,w):

@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>BMI Calculator</title>
 
-		<link href="https://fonts.googleapis.com/css?family=Oswald|Ubuntu:400,700" rel="stylesheet">
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 
 		<!-- Stylesheet CSS -->
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/united.min.css') }}" >
@@ -29,12 +29,13 @@
 				<div class="overlay"></div>
 				<div class="col-lg-12">
 					<!--Title-->
-					<h1>
-						<a href="{{ url_for('home') }}">Calorimeter</a>
+					<h1  class="row">
+						<div class="col-lg-6">
+						<a href="{{ url_for('home') }}" style="color:#a3c563;">caloriemeter</a>
+						</div>
 					</h1>
-
 					<div class="row t20">
-						<div class="col-lg-6 col-lg-offset-3">
+						<div class="col-lg-6">
 							<!--Navigation-->
 							<ul class="nav nav-pills nav-justified">
 								<li role="presentation">
@@ -55,7 +56,7 @@
 									<div class="dropdown-menu">
 										<a class="dropdown-item drpdown-menu" style="color:black; padding:5px 10px;" href="{{ url_for('security') }}">Security</a>
 										<hr style="margin-top:10px;margin-bottom:10px;">
-										<a class="dropdown-item drpdown-menu" style="color:black; padding:5px 10px;" href="#">About</a>
+										<a class="dropdown-item drpdown-menu" style="color:black; padding:5px 10px;" href="{{ url_for('aboutPage') }}">About</a>
 										<hr style="margin-top:10px;margin-bottom:10px;">
 										<a class="dropdown-item drpdown-menu" style="color:black; padding:5px 10px;" href="{{ url_for('logout') }}">Logout</a>
 									</div>
@@ -76,13 +77,14 @@
         		    <form class="bg form-container" method="post" action="{{ url_for('bmi_calculate') }}">
 						<!--Changing details if necessary-->
 						<div class="form-group">
-							<label for="exampleInputHeight1" class="form-label">How tall are you?</label>
+							<label for="exampleInputHeight1" class="form-label"><h4>How tall are you?</h4></label>
 							<input type="number" class="form-control" id="exampleInputHeight1" name="height" value="{{ database_hw.1 }}" placeholder="Height" aria-describedby="nameHelp">
 						</div>
 						<div class="form-group">
-							<label for="exampleInputWeight1" class="form-label">How much do you weigh?</label>
+							<label for="exampleInputWeight1" class="form-label"><h4>How much do you weigh?</h4></label>
 							<input type="number" class="form-control" id="exampleInputWeight1" name="weight" value="{{ database_hw.0 }}" placeholder="Weight" aria-describedby="emailHelp">
 						</div>
+						<br>
 						<!--Submit button-->
 						<button type="submit" class="btn btn-primary btn-success btn-block next-btn">Calculate</button>
 

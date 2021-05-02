@@ -1,6 +1,18 @@
+*{
+font-family: "Roboto";
+}
+
+.form-radius{
+border-radius:4px;}
+
  .bg {
- background-color: #80BD9E;
+ background-color: #c3da99;
  }
+
+.logo-dimensions {
+    height:40px;
+    width:40px;
+}
 
 body.bg-nav {
     background-image: url('./img/signup.jpg');
@@ -8,22 +20,27 @@ body.bg-nav {
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
+    color:#01452c;
 }
 
 .form-container {
+border-radius:4px;
 margin-top: 50px;
-border: 1px solid #000;
 padding: 30px 60px
 }
 
 .topic {
 font-size: 40px;
+font-weight: bolder;
 text-align: center;
-Font-family: "Times New Roman", "Times";
+Font-family: 'Roboto';
+color: #fff;
 }
 
+
 .btn-success{
-background-color: #CB4E47;
+background-color: #f08e68;
+border-color: #f08e68
 }
 
  .form-group {
@@ -35,19 +52,15 @@ margin-top: 10px;
 }
 
 a:link {
-  color: green;
+  color: #01452c;
   background-color: transparent;
   text-decoration: none;
 }
 
 a:visited {
-  color: #000;
+  color: #01452c;
   background-color: transparent;
   text-decoration: none;
-}
-
-.next-btn{
-background-color: #CB4E47;
 }
 
 .btn-group button{
@@ -75,11 +88,7 @@ background-color: #CB4E47;
 .btn-group button:focus {
   background-color: #3e8e41;
 }
+
 .goals{
     margin-top:30px;
-}
-
-.goalbtn{
-color: #000;
-background-color:#b2cfbd;
 }
